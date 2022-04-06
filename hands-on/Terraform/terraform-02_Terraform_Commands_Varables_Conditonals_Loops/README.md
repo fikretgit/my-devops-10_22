@@ -35,7 +35,7 @@ terraform {
   required_providers {
     aws = {
       source = "hashicorp/aws"
-      version = "3.69.0"
+      version = "4.8.0"
     }
   }
 }
@@ -51,10 +51,9 @@ resource "aws_instance" "tf-ec2" {
 
 resource "aws_s3_bucket" "tf-s3" {
   bucket = "oliver-tf-test-bucket-addwhateveryouwant"
-  acl    = "private"
 }
 ```
-
+firstly `terraform init` must be done..!! then ->
 - Run the command `terraform plan` and `terraform apply`.
 
 ```bash
@@ -187,27 +186,16 @@ terraform output -json
 terraform output tf_example_public_ip
 ```
 
-### refresh command.
+### terraform apply -refresh-only command.
 
-- The `terraform refresh` command is used to update the state file with the real-world infrastructure. This can be used to detect any drift from the last-known state, and to update the state file. First, check the current state of your resources with `terraform state list`. Then go to the AWS console and delete your S3 bucket `oliver-tf-test-bucket-addwhateveryouwant`. Display the state list again and refresh the state. Run the following commands.
+- The `terraform apply -refresh-only` command is used to update the state file with the real-world infrastructure. This can be used to detect any drift from the last-known state, and to update the state file. First, check the current state of your resources with `terraform state list`. Then go to the AWS console and delete your S3 bucket `oliver-tf-test-bucket-addwhateveryouwant`. Display the state list again and refresh the state. Run the following commands.
 
 ```bash
 $ terraform state list
 aws_instance.tf-example-ec2
 aws_s3_bucket.tf-example-s3
 
-$ terraform state list
-aws_instance.tf-example-ec2
-aws_s3_bucket.tf-example-s3
-
-$ terraform refresh
-aws_instance.tf-example-ec2: Refreshing state... [id=i-02938164282a9c741]
-aws_s3_bucket.tf-example-s3: Refreshing state... [id=oliver-tf-test-bucket]
-
-Outputs:
-
-tf_example_public_ip = "54.237.127.221"
-tf_example_s3_meta = "us-east-1"
+$ terraform apply -refresh-only
 
 $ terraform state list
 aws_instance.tf-example-ec2
@@ -244,7 +232,6 @@ resource "aws_instance" "tf-ec2" {
 resource "aws_s3_bucket" "tf-s3" {
   bucket = "oliver-tf-bucket-addwhateveryouwant-new"
   #bucket = "oliver-tf-bucket-addwhateveryouwant"
-  acl    = "private"
 }
 ```
 
@@ -312,7 +299,7 @@ terraform {
   required_providers {
     aws = {
       source = "hashicorp/aws"
-      version = "3.69.0"
+      version = "4.8.0"
     }
   }
 }
@@ -344,7 +331,6 @@ variable "s3_bucket_name" {
 
 resource "aws_s3_bucket" "tf-s3" {
   bucket = var.s3_bucket_name
-  acl    = "private"
 }
 
 output "tf-example-public_ip" {
@@ -485,7 +471,6 @@ resource "aws_instance" "tf-ec2" {
 
 resource "aws_s3_bucket" "tf-s3" {
   bucket = var.s3_bucket_name
-  acl    = "private"
   tags = {
     Name = "${local.mytag}-come from locals"
   }
@@ -525,7 +510,6 @@ variable "num_of_buckets" {
 ```bash
 resource "aws_s3_bucket" "tf-s3" {
   bucket = "${var.s3_bucket_name}-${count.index}"
-  acl    = "private"
   count = var.num_of_buckets
 }
 ```
@@ -557,7 +541,7 @@ terraform apply
 ```bash
 resource "aws_s3_bucket" "tf-s3" {
   bucket = "${var.s3_bucket_name}-${count.index}"
-  acl    = "private"
+
   # count = var.num_of_buckets
   count = var.num_of_buckets != 0 ? var.num_of_buckets : 3
 }
@@ -584,7 +568,6 @@ variable "users" {
 ```bash
 resource "aws_s3_bucket" "tf-s3" {
   # bucket = "var.s3_bucket_name.${count.index}"
-  acl = "private"
   # count = var.num_of_buckets
   # count = var.num_of_buckets != 0 ? var.num_of_buckets : 1
   for_each = toset(var.users)
