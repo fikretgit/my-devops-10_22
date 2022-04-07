@@ -435,13 +435,17 @@ s3_bucket_name = "oliver-auto-tfvar-bucket"
 terraform plan
 ```
 
-- Terraform loads variables in the following order, with later sources taking precedence over earlier ones:
+- Terraform loads variables in the following order:
 
-  - Any -var and -var-file options on the command line, in the order they are provided.
+  - Any -var and -var-file options on the COMMAND LINE, in the order they are provided.
   - Any *.auto.tfvars or *.auto.tfvars.json files, processed in lexical order of their filenames.
   - The terraform.tfvars.json file, if present.
   - The terraform.tfvars file, if present.
+  - The variable.tf file if present. (from mentor..)
   - Environment variables
+
+Documentation in own pages: 
+https://www.terraform.io/language/values/variables (at bottom of the pages)
 
 - Run terraform apply command.
 
