@@ -53,7 +53,7 @@ resource "aws_s3_bucket" "tf-s3" {
   bucket = "oliver-tf-test-bucket-addwhateveryouwant"
 }
 ```
-
+firstly `terraform init` must be done..!! then ->
 - Run the command `terraform plan` and `terraform apply`.
 
 ```bash
@@ -437,11 +437,15 @@ terraform plan
 
 - Terraform loads variables in the following order:
 
-  - Any -var and -var-file options on the command line, in the order they are provided.
+  - Any -var and -var-file options on the COMMAND LINE, in the order they are provided.
   - Any *.auto.tfvars or *.auto.tfvars.json files, processed in lexical order of their filenames.
   - The terraform.tfvars.json file, if present.
   - The terraform.tfvars file, if present.
+  - The variable.tf file if present. (from mentor..)
   - Environment variables
+
+Documentation in own pages: 
+https://www.terraform.io/language/values/variables (at bottom of the pages)
 
 - Run terraform apply command.
 
