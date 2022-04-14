@@ -197,4 +197,3 @@ docker rm clarus
 ```bash
 docker ps -a
 ```
-docker rm 78 3a 4n 5h   -- > by typing different container id's of 2 digit, it can be removed...
