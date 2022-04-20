@@ -131,7 +131,8 @@ COPY . .
 CMD ["flask", "run"]
 ' > Dockerfile
 ```
-
+expose : ortaya çıkarmak demek 
+WORKDIR komutu, herhangi bir zamanda bir Docker kapsayıcısının çalışma dizinini tanımlamak için kullanılır.
 - Create a file called `docker-compose.yml` in your project folder and define services and explain services.
 
 ```text
