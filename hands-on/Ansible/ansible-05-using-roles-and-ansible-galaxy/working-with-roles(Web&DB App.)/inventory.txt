@@ -1,0 +1,8 @@
+[servers]
+web_server_1 ansible_host=172.31.16.19 ansible_ssh_private_key_file=~/felix.pem ansible_user=ec2-user
+web_server_2 ansible_host=172.31.18.197 ansible_ssh_private_key_file=~/felix.pem ansible_user=ubuntu
+instance_image ansible_host=172.31.83.190 ansible_ssh_private_key_file=~/felix.pem ansible_user=ubuntu
+
+[appserver]
+db_server ansible_host=172.31.83.227 ansible_ssh_private_key_file=~/felix.pem ansible_user=ec2-user
+web_server ansible_host=172.31.83.139 ansible_ssh_private_key_file=~/felix.pem ansible_user=ec2-user
