@@ -52,9 +52,10 @@ rules:
   - services
   - endpoints
   - pods
+  - configmaps
   verbs: ["get", "list", "watch"]
 - apiGroups:
-  - extensions
+  - networking.k8s.io
   resources:
   - ingresses
   verbs: ["get", "list", "watch"]
@@ -95,7 +96,7 @@ metadata:
     name: prometheus-server-conf
   namespace: prometheus
 data:
-  prometheus.rules: |-
+  rule.yml: |-
     groups:
     - name: Sample Alert
       rules:
@@ -111,7 +112,7 @@ data:
       scrape_interval: 5s
       evaluation_interval: 5s
     rule_files:
-      - /etc/prometheus/prometheus.rules
+      - /etc/prometheus/rule.yml
     alerting:
       alertmanagers:
       - scheme: http
@@ -361,22 +362,9 @@ web-prometheus-server   NodePort   10.106.87.104   <none>        90:32000/TCP   
 - To install the lates OSS release:
 
 ```bash
-$ sudo apt-get install -y apt-transport-https
-$ sudo apt-get install -y software-properties-common wget
-$ wget -q -O - https://packages.grafana.com/gpg.key | sudo apt-key add -
-```
-
-- Add this repository for stable releases:
-
-```bash
-$ echo "deb https://packages.grafana.com/oss/deb stable main" | sudo tee -a /etc/apt/sources.list.d/grafana.list
-```
-
-- After you add repository:
-
-```bash
-$ sudo apt-get update
-$ sudo apt-get install grafana
+sudo apt-get install -y adduser libfontconfig1
+wget https://dl.grafana.com/enterprise/release/grafana-enterprise_9.0.0_amd64.deb
+sudo dpkg -i grafana-enterprise_9.0.0_amd64.deb
 ```
 
 - To start the service:
