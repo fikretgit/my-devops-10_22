@@ -1,4 +1,4 @@
-# Hands-on Jenkins-06 : Slave Node Configuration
+# Hands-on Jenkins-06 : Slave Node Configuration and DSL Job
 
 Purpose of the this hands-on training is to learn how to configure a slave node to Jenkins Server. 
 
