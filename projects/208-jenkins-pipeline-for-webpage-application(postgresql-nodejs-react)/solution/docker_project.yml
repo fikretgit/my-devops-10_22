@@ -92,7 +92,7 @@
   become: true
   vars:
     postgre_container: /home/ec2-user/postgresql
-    container_name: felix_postgre
+    container_name: oliver_postgre
     image_name: 046402772087.dkr.ecr.us-east-1.amazonaws.com/clarusway-repo/cw-todo-app:postgr
   tasks:
     - name: remove {{ container_name }} container and {{ image_name }} if exists
@@ -115,7 +115,7 @@
   become: true
   vars:
     container_path: /home/ec2-user/nodejs
-    container_name: felix_nodejs
+    container_name: oliver_nodejs
     image_name: 046402772087.dkr.ecr.us-east-1.amazonaws.com/clarusway-repo/cw-todo-app:nodejs
   tasks:
     - name: remove {{ container_name }} container and {{ image_name }} if exists
@@ -134,7 +134,7 @@
   become: true
   vars:
     container_path: /home/ec2-user/react
-    container_name: felix_react
+    container_name: oliver_react
     image_name: 046402772087.dkr.ecr.us-east-1.amazonaws.com/clarusway-repo/cw-todo-app:react
   tasks:
     - name: remove {{ container_name }} container and {{ image_name }} image if exists

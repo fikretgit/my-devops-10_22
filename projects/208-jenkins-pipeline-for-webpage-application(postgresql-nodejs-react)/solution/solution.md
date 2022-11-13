@@ -137,7 +137,7 @@ resource "aws_instance" "managed_nodes" {
   ami = "ami-0f095f89ae15be883"
   count = 3
   instance_type = "t2.micro"
-  key_name = "felix"
+  key_name = "clarus"
   vpc_security_group_ids = [aws_security_group.tf-sec-gr.id]
   iam_instance_profile = "jenkins-project-profile"
   tags = {
@@ -216,7 +216,7 @@ output "postgre_private_ip" {
   become: true
   vars:
     aws_region: us-east-1
-    ecr_registry: <account-id>.dkr.ecr.us-east-1.amazonaws.com
+    ecr_registry: 046402772087.dkr.ecr.us-east-1.amazonaws.com
   tasks:
     - name: update all packages
       yum:
@@ -305,8 +305,8 @@ output "postgre_private_ip" {
   become: true
   vars:
     postgre_container: /home/ec2-user/postgresql
-    container_name: felix_postgre
-    image_name: <account-id>.dkr.ecr.us-east-1.amazonaws.com/clarusway-repo/cw-todo-app:postgr
+    container_name: oliver_postgre
+    image_name: 046402772087.dkr.ecr.us-east-1.amazonaws.com/clarusway-repo/cw-todo-app:postgr
   tasks:
     - name: remove {{ container_name }} container and {{ image_name }} if exists
       shell: "docker ps -q --filter 'name={{ container_name }}' && docker stop {{ container_name }} && docker rm -fv {{ container_name }} && docker image rm -f {{ image_name }} || echo 'Not Found'"
@@ -328,8 +328,8 @@ output "postgre_private_ip" {
   become: true
   vars:
     container_path: /home/ec2-user/nodejs
-    container_name: felix_nodejs
-    image_name: <account-id>.dkr.ecr.us-east-1.amazonaws.com/clarusway-repo/cw-todo-app:nodejs
+    container_name: oliver_nodejs
+    image_name: 046402772087.dkr.ecr.us-east-1.amazonaws.com/clarusway-repo/cw-todo-app:nodejs
   tasks:
     - name: remove {{ container_name }} container and {{ image_name }} if exists
       shell: "docker ps -q --filter 'name={{ container_name }}' && docker stop {{ container_name }} && docker rm -fv {{ container_name }} && docker image rm -f {{ image_name }} || echo 'Not Found'"
@@ -347,8 +347,8 @@ output "postgre_private_ip" {
   become: true
   vars:
     container_path: /home/ec2-user/react
-    container_name: felix_react
-    image_name: <account-id>.dkr.ecr.us-east-1.amazonaws.com/clarusway-repo/cw-todo-app:react
+    container_name: oliver_react
+    image_name: 046402772087.dkr.ecr.us-east-1.amazonaws.com/clarusway-repo/cw-todo-app:react
   tasks:
     - name: remove {{ container_name }} container and {{ image_name }} image if exists
       shell: "docker ps -q --filter 'name={{ container_name }}' && docker stop {{ container_name }} && docker rm -fv {{ container_name }} && docker image rm -f {{ image_name }} || echo 'Not Found'"
@@ -433,7 +433,7 @@ pipeline {
         AWS_REGION = "us-east-1"
         AWS_ACCOUNT_ID=sh(script:'export PATH="$PATH:/usr/local/bin" && aws sts get-caller-identity --query Account --output text', returnStdout:true).trim()
         ECR_REGISTRY="${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com"
-        APP_REPO_NAME = "felix-repo/todo-app"
+        APP_REPO_NAME = "clarusway-repo/cw-todo-app"
         APP_NAME = "todo"
         HOME_FOLDER = "/home/ec2-user"
         GIT_FOLDER = sh(script:'echo ${GIT_URL} | sed "s/.*\\///;s/.git$//"', returnStdout:true).trim()
