@@ -11,7 +11,7 @@ At the end of the this hands-on training, students will be able to;
 - Learn `Persistent Volumes` and `Persistent Volume Claims`.
 
 ## Outline
-
+   
 - Part 1 - Setting up the Kubernetes Cluster
 
 - Part 2 - Kubernetes Volume Persistence
